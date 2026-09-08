@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Food Label Decoder</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🥗 Food Label Decoder
+        </div>
+
+        <div class="tagline">
+            Smart • Simple • Informative
+        </div>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- HERO SECTION -->
+
+        <section class="hero">
+
+
+            <div class="hero-text">
+
+                <span class="badge">
+                    AI-Powered Food Analysis
+                </span>
+
+
+                <h1>
+                    Understand What's<br>
+                    Inside Your Food
+                </h1>
+
+
+                <p>
+                    Upload a packaged food label and get
+                    easy-to-understand information about
+                    nutrition, ingredients, additives and
+                    potential allergens.
+                </p>
+
+            </div>
+
+
+
+            <!-- UPLOAD CARD -->
+
+            <div class="upload-card">
+
+
+                <div class="upload-icon">
+                    📷
+                </div>
+
+
+                <h2>
+                    Analyze Food Label
+                </h2>
+
+
+                <p>
+                    Upload a clear image of the nutrition label.
+                </p>
+
+
+
+                <form
+                    action="/upload"
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+
+                    <label
+                        for="food-image"
+                        class="file-label"
+                    >
+                        Choose Food Label
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="food-image"
+                        name="food-image"
+                        accept="image/*"
+                        required
+                    >
+
+
+                    <p
+                        id="file-name"
+                        class="file-name"
+                    >
+                        No file selected
+                    </p>
+
+
+                    <button
+                        type="submit"
+                        class="analyze-btn"
+                    >
+                        Analyze Food Label →
+                    </button>
+
+
+                </form>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        {% if result %}
+
+
+        <!-- RESULTS SECTION -->
+
+        <section class="results-section">
+
+
+            <div class="results-heading">
+
+
+                <span class="badge">
+                    Analysis Complete
+                </span>
+
+
+                <h2>
+                    Food Label Analysis
+                </h2>
+
+
+                <p>
+                    Here's what we found from your uploaded label.
+                </p>
+
+
+            </div>
+
+
+
+            <!-- ANALYZED IMAGE -->
+
+            <div class="section-card analyzed-image-card">
+
+
+                <div class="section-title">
+
+                    🖼️
+
+                    <h3>
+                        Analyzed Food Label
+                    </h3>
+
+                </div>
+
+
+                <div class="image-preview">
+
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename='uploads/' + result.image_filename
+                        ) }}"
+                        alt="Uploaded food label"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- SERVING INFORMATION -->
+
+            <div class="section-card">
+
+
+                <div class="section-title">
+
+                    🍽️
+
+                    <h3>
+                        Serving Information
+                    </h3>
+
+                </div>
+
+
+                <div class="info-grid">
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Serving Size
+                        </span>
+
+
+                        <strong>
+
+                            {{ result.serving_info.serving_size }}
+
+                            {{ result.serving_info.serving_unit }}
+
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="info-box">
+
+                        <span>
+                            Basis
+                        </span>
+
+
+                        <strong>
+                            {{ result.serving_info.basis }}
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- NUTRITION -->
+
+            <div class="section-card">
+
+
+                <div class="section-title">
+
+                    🥑
+
+                    <h3>
+                        Nutrition Information
+                    </h3>
+
+                </div>
+
+
+
+                <div class="nutrition-grid">
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Calories
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.calories }}
+                        </strong>
+
+                        <small>
+                            kcal
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Total Fat
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.total_fat }}
+                        </strong>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Saturated Fat
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.saturated_fat }}
+                        </strong>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Trans Fat
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.trans_fat }}
+                        </strong>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Cholesterol
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.cholesterol }}
+                        </strong>
+
+                        <small>
+                            mg
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Sodium
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.sodium }}
+                        </strong>
+
+                        <small>
+                            mg
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Carbohydrates
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.carbohydrates }}
+                        </strong>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Dietary Fiber
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.dietary_fiber }}
+                        </strong>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Total Sugar
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.sugar }}
+                        </strong>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Added Sugar
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.added_sugar }}
+                        </strong>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="nutrition-card">
+
+                        <span>
+                            Protein
+                        </span>
+
+                        <strong>
+                            {{ result.nutrition.protein }}
+                        </strong>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- NUTRITION ANALYSIS -->
+
+            <div class="section-card">
+
+
+                <div class="section-title">
+
+                    📊
+
+                    <h3>
+                        Nutrition Analysis
+                    </h3>
+
+                </div>
+
+
+
+                {% if result.nutrition_analysis.classification_available %}
+
+
+                    <div class="classification-grid">
+
+
+                        {% for nutrient, level in
+                        result.nutrition_analysis.levels.items() %}
+
+
+                            <div class="classification-card">
+
+
+                                <span>
+                                    {{ nutrient }}
+                                </span>
+
+
+                                <strong>
+                                    {{ level }}
+                                </strong>
+
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <div class="notice-box">
+
+                        <span>
+                            ℹ️
+                        </span>
+
+                        <span>
+                            {{ result.nutrition_analysis.message }}
+                        </span>
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- INGREDIENTS -->
+
+            <div class="section-card">
+
+
+                <div class="section-title">
+
+                    🧪
+
+                    <h3>
+                        Ingredients & Additives
+                    </h3>
+
+                </div>
+
+
+
+                {% if result.ingredients %}
+
+
+                    <div class="ingredient-list">
+
+
+                        {% for ingredient in result.ingredients %}
+
+
+                            <div class="ingredient-card">
+
+
+                                <div class="ingredient-code">
+
+                                    {{ ingredient.code }}
+
+                                </div>
+
+
+
+                                <div>
+
+
+                                    <h4>
+                                        {{ ingredient.name }}
+                                    </h4>
+
+
+                                    <p>
+
+                                        <strong>
+                                            Category:
+                                        </strong>
+
+                                        {{ ingredient.category }}
+
+                                    </p>
+
+
+                                    <p>
+                                        {{ ingredient.explanation }}
+                                    </p>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <div class="empty-box">
+
+                        ✓ No supported additives detected.
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- ALLERGENS -->
+
+            <div class="section-card">
+
+
+                <div class="section-title">
+
+                    ⚠️
+
+                    <h3>
+                        Potential Allergens
+                    </h3>
+
+                </div>
+
+
+
+                {% if result.allergens %}
+
+
+                    <div class="allergen-list">
+
+
+                        {% for allergen, matches in
+                        result.allergens.items() %}
+
+
+                            <div class="allergen-card">
+
+
+                                <strong>
+                                    {{ allergen }}
+                                </strong>
+
+
+                                <span>
+                                    {{ matches | join(", ") }}
+                                </span>
+
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                    <p class="warning-text">
+
+                        Please verify detected allergens against
+                        the original product packaging.
+
+                    </p>
+
+
+                {% else %}
+
+
+                    <div class="empty-box">
+
+                        ✓ No supported allergens detected.
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- OCR TEXT -->
+
+            <div class="section-card">
+
+
+                <div class="section-title">
+
+                    📝
+
+                    <h3>
+                        Extracted Label Text
+                    </h3>
+
+                </div>
+
+
+
+                <details>
+
+
+                    <summary>
+                        View OCR Text
+                    </summary>
+
+
+                    <pre class="ocr-text">{{ result.ocr_text }}</pre>
+
+
+                </details>
+
+
+            </div>
+
+
+
+            <!-- NEW SCAN -->
+
+            <div class="new-scan">
+
+
+                <a
+                    href="/"
+                    class="new-scan-btn"
+                >
+                    ← Scan Another Food Label
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+        {% endif %}
+
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Food Label Decoder • AI & OCR Based Food Analysis
+        </p>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        const fileInput =
+            document.getElementById("food-image");
+
+        const fileName =
+            document.getElementById("file-name");
+
+
+        if (fileInput) {
+
+            fileInput.addEventListener(
+                "change",
+                function () {
+
+                    if (this.files.length > 0) {
+
+                        fileName.textContent =
+                            this.files[0].name;
+
+                    } else {
+
+                        fileName.textContent =
+                            "No file selected";
+
+                    }
+
+                }
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

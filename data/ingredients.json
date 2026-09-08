@@ -1,0 +1,43 @@
+{
+    "INS 330": {
+        "name": "Citric Acid",
+        "category": "Acidity Regulator",
+        "explanation": "Used to provide a sour taste and help control acidity in foods.",
+        "common_uses": "Soft drinks, candies, sauces and packaged foods."
+    },
+
+    "INS 322": {
+        "name": "Lecithin",
+        "category": "Emulsifier",
+        "explanation": "Helps ingredients such as oil and water mix together.",
+        "common_uses": "Chocolate, baked goods and processed foods."
+    },
+
+    "INS 500": {
+        "name": "Sodium Bicarbonate",
+        "category": "Raising Agent",
+        "explanation": "Helps dough and baked products rise.",
+        "common_uses": "Biscuits, cakes and baked foods."
+    },
+
+    "INS 471": {
+        "name": "Mono- and Diglycerides of Fatty Acids",
+        "category": "Emulsifier",
+        "explanation": "Helps maintain texture and keep ingredients mixed.",
+        "common_uses": "Bread, cakes, spreads and processed foods."
+    },
+
+    "INS 202": {
+        "name": "Potassium Sorbate",
+        "category": "Preservative",
+        "explanation": "Used to help prevent the growth of certain molds and yeasts.",
+        "common_uses": "Beverages, sauces, cheese and packaged foods."
+    },
+
+    "INS 211": {
+        "name": "Sodium Benzoate",
+        "category": "Preservative",
+        "explanation": "Used to help preserve certain acidic foods and beverages.",
+        "common_uses": "Soft drinks, sauces and packaged foods."
+    }
+}
